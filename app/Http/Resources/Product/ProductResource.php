@@ -14,12 +14,17 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return  [
             'name'=> $this->name,
             'description'=> $this->detail,
             'price'=> $this->price,
-            'stock'=> $this->stock,
-            'discount'=> $this->discount
+            'stock'=> $this->stock ==0 ? 'Out of the Stock': $this->stock ,
+            'discount'=> $this->discount,
+            'totalPrice'=> round( (1 - ($this->discount/100)) * $this->price,2),
+            'rating'=>$this->reviews->count()? round($this->reviews->sum('star')/$this->reviews->count(),2) :'No Rating Yet',
+            'href'=>[
+                'reviews'=>route('reviews.index',$this->id)
+            ]
         ];
     }
 }
