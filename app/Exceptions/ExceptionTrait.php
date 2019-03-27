@@ -16,14 +16,14 @@ trait ExceptionTrait{
             ],404);
         }
 
-    if ($e instanceof NotFoundHttpException) //can make is Http Func Like Model see Commit""
+    if ($e instanceof NotFoundHttpException) //can make is Http Func Like Model see Commit"Customised Exception"
         {
             return response()->json([
                 'errors'=>'Incorrect Route'
             ],404);
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
       
     }
 
